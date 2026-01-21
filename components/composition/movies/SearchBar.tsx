@@ -29,10 +29,10 @@ export function SearchBar() {
         placeholder="Search movies..."
         defaultValue={searchParams.get("q")?.toString()}
         onChange={(e) => handleSearch(e.target.value)}
-        className="bg-transparent border-zinc-800 focus:border-white transition-colors"
+        className="bg-transparent border-border border-0 transition-colors"
       />
       {isPending && (
-        <div className="absolute right-3 top-2.5 text-xs text-zinc-500 animate-pulse">
+        <div className="absolute right-3 top-2.5 text-xs text-muted-foreground animate-pulse">
           ...
         </div>
       )}

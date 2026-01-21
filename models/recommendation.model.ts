@@ -3,6 +3,7 @@ import mongoose, { Schema, model, models } from "mongoose";
 
 const RecommendationSchema = new Schema({
   senderId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  senderName: { type: String, required: true }, 
   receiverId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   tmdbId: { type: Number, required: true },
   movieTitle: { type: String, required: true },

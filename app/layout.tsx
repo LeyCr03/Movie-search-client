@@ -1,11 +1,11 @@
+import { ThemeProvider } from '@/components/atoms/ThemeProvider';
 import './globals.css';
 import { Toaster } from '@/components/atoms/ui/sonner';
 import { Navbar } from '@/components/layout/Navbar';
-import { ThemeProvider } from 'next-themes'
 
 export const metadata = {
-  title: "Subscription Manager",
-  description: "Subscription Manager Dashboard with nextjs/postgres/node",
+  title: "CINESPHERE",
+  description: "Browse, track, and recommend movies.",
 };
 export default function RootLayout({
   children,
@@ -13,12 +13,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark">
       <body className="font-sans bg-background">
-        <ThemeProvider attribute="class" defaultTheme='light' enableSystem={false}>
+        <ThemeProvider>
           <Navbar></Navbar>
           {children}
-          <Toaster />
+          <Toaster position="bottom-right" richColors expand={false} />
         </ThemeProvider>
       </body>
     </html>

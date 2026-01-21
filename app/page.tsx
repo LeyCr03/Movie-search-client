@@ -19,7 +19,7 @@ export default async function HomePage({
   const movies = data.results || [];
 
   return (
-    <main className="container mx-auto px-4 py-10">
+    <main className="container mx-auto px-4 py-10 ">
       <div className="flex flex-col items-center mb-12 space-y-6">
         <h1 className="text-4xl font-bold tracking-tighter">Searching for a film?</h1>
         <SearchBar />
@@ -40,9 +40,9 @@ export default async function HomePage({
           <p className="text-center text-zinc-500 mt-20">No movies found.</p>
         )}
       </section>
-      <footer className="mt-10 flex justify-center items-center gap-2">
+      <footer className="mt-10 flex justify-center items-center gap-2 text-zinc-500">
         <Copyright size={25}/> 
-        <h2>Copyright by CINESPHERE. All rights reserved</h2>
+        <h2>Copyright by <span className="font-bold">CINESPHERE.</span> All rights reserved</h2>
       </footer>
     </main>
   );
