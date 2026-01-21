@@ -4,33 +4,46 @@ import { signIn } from "next-auth/react";
 import { registerUser } from "@/actions/auth";
 import { Button } from "@/components/atoms/ui/button";
 import { Input } from "@/components/atoms/ui/input";
-import { Copyright, Github } from "lucide-react";
+import { Copyright, Github, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const [mode, setMode] = useState<"login" | "signup">("login");
   const [error, setError] = useState("");
   const [msg, setMsg] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // New Loading State
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true); // Start loading
+    setError("");
+    setMsg("");
+
     const formData = new FormData(e.currentTarget);
 
-    if (mode === "signup") {
-      const res = await registerUser(formData);
-      if (res.error) setError(res.error);
-      else {
-        setMsg(res.success!);
-        setMode("login");
+    try {
+      if (mode === "signup") {
+        const res = await registerUser(formData);
+        if (res.error) {
+          setError(res.error);
+        } else {
+          setMsg(res.success!);
+          setMode("login");
+        }
+      } else {
+        const res = await signIn("credentials", {
+          email: formData.get("email"),
+          password: formData.get("password"),
+          redirect: true,
+          callbackUrl: "/",
+        });
       }
-    } else {
-      const res = await signIn("credentials", {
-        email: formData.get("email"),
-        password: formData.get("password"),
-        redirect: true,
-        callbackUrl: "/",
-      });
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false); // Stop loading
     }
   };
+
 
   return (
     <section className="">
@@ -45,16 +58,23 @@ export default function LoginPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === "signup" && (
-              <Input name="name" placeholder="Full Name" required className="border border-border h-12 rounded-md" />
+              <Input name="name" placeholder="Full Name" required disabled={isLoading} className="border border-border h-12 rounded-md" />
             )}
-            <Input name="email" type="email" placeholder="Email" required className="border border-border h-12 rounded-md" />
-            <Input name="password" type="password" placeholder="Password" required className="border border-border h-12 rounded-md" />
+            <Input name="email" type="email" placeholder="Email" required disabled={isLoading} className="border border-border h-12 rounded-md" />
+            <Input name="password" type="password" placeholder="Password" required disabled={isLoading} className="border border-border h-12 rounded-md" />
 
             {error && <p className="text-xs text-red-500">{error}</p>}
             {msg && <p className="text-xs text-green-500">{msg}</p>}
 
-            <Button type="submit" className="w-full h-12 rounded-full ">
-              {mode === "login" ? "Sign In" : "Create Account"}
+            <Button type="submit" disabled={isLoading} className="w-full h-12 rounded-full ">
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait...
+                </>
+              ) : (
+                mode === "login" ? "Sign In" : "Create Account"
+              )}
             </Button>
           </form>
 
@@ -64,14 +84,19 @@ export default function LoginPage() {
 
           <Button
             className="w-full h-12 rounded-full border-border"
-            onClick={() => signIn("github", { callbackUrl: "/" })}
+            disabled={isLoading}
+            onClick={() => {
+                setIsLoading(true);
+                signIn("github", { callbackUrl: "/" });
+            }}
           >
-            <Github className="mr-2 h-4 w-4" /> GitHub
+            {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Github className="mr-2 h-4 w-4" /> GitHub</>}
           </Button>
 
           <p className="text-center text-xs uppercase text-muted-foreground">
             {mode === "login" ? "Don't have an account?  " : "Already have an account? "}
             <button
+              disabled={isLoading}
               onClick={() => setMode(mode === "login" ? "signup" : "login")}
               className="text-foreground hover:underline"
             >

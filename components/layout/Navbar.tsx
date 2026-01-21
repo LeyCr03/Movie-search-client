@@ -1,28 +1,46 @@
 import Link from "next/link";
-import { auth } from "@/lib/auth";
-import UserNav from "@/components/atoms/user/UserNav";
+import { Home, Bookmark, List, CheckCircle, Users, UserRound } from "lucide-react";
 import { ThemeToggle } from "../atoms/user/ThemeToggle";
-import { UserRound } from "lucide-react";
+import UserNav from "../atoms/user/UserNav";
 
-export async function Navbar() {
+export function Navbar() {
+  const navLinks = [
+    { name: "HOME", href: "/", icon: Home },
+    { name: "WATCHLIST", href: "/watchlist", icon: Bookmark },
+    { name: "LISTS", href: "/lists", icon: List },
+    { name: "WATCHED", href: "/watched", icon: CheckCircle },
+    { name: "SOCIAL", href: "/social", icon: Users },
+  ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full text-muted-foreground flex border-border bg-card/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-[10vh] items-center justify-between px-0">
-        <Link href="/" className="text-xl font-bold tracking-tighter">
-          CINESPHERE.
+    <nav className="sticky top-0 z-50 w-full bg-card/45 backdrop-blur-md">
+      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+        <Link href="/" className="text-xl font-bold tracking-tighter mr-4">
+          CINESPHERE<span className="hidden xs:inline">.</span>
         </Link>
 
-        <div className="flex items-center gap-8 text-sm font-medium">
-          <Link href="/" className="hover:text-foreground transition-colors">HOME</Link>
-          <Link href="/watchlist" className="hover:text-foreground transition-colors">WATCHLIST</Link>
-          <Link href="/lists" className="hover:text-foreground transition-colors">LISTS</Link>
-          <Link href="/watched" className="hover:text-foreground transition-colors">WATCHED</Link>
-          <Link href="/social" className="hover:text-foreground transition-colors">SOCIAL</Link>
+        <div className="flex items-center gap-1 sm:gap-6 md:gap-8">
+          {navLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href} 
+              className="group flex items-center justify-center p-2 rounded-lg transition-all"
+            >
+              <link.icon className="h-5 w-5 sm:hidden" />
+              <span className="hidden sm:inline text-xs font-bold tracking-widest text-muted-foreground group-hover:text-foreground transition-colors">
+                {link.name}
+              </span>
+            </Link>
+          ))}
         </div>
-        <div className="flex items-center justify-end gap-3">
-          <Link href="/profile" className=" hover:bg-muted-foreground/40 rounded-full p-2 "><UserRound size={18} /></Link>
-          <ThemeToggle />
+
+        <div className="flex items-center gap-2 ml-2">
+          <Link href="/profile" className="rounded-full p-2 transition-colors">
+            <UserRound size={20} className="text-muted-foreground" />
+          </Link>
+          <div className="scale-90">
+            <ThemeToggle />
+          </div>
           <UserNav />
         </div>
       </div>
