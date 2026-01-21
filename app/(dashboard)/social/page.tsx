@@ -6,6 +6,8 @@ import { User } from "@/models/user.model";
 import { MovieCard } from "@/components/composition/movies/MovieCard";
 import { UserSearch } from "@/components/composition/social/UserSearch";
 import { InviteList } from "@/components/composition/social/Invitelist";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import { Suspense } from "react";
 
 export default async function SocialPage() {
   const session = await auth();

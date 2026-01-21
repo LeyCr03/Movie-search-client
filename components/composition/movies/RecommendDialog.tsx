@@ -52,7 +52,7 @@ export function RecommendDialog({ movie, friends, isWatched }: { movie: any, fri
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button 
-          variant="outline" 
+          variant="ghost" 
           className="rounded-full px-6"
           disabled={!isWatched} // Only enabled if movie is seen
           title={!isWatched ? "Mark as watched to recommend" : ""}

@@ -1,13 +1,15 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { Input } from "@/components/atoms/ui/input";
 
 export function SearchBar() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+  
 
   function handleSearch(term: string) {
     const params = new URLSearchParams(searchParams);

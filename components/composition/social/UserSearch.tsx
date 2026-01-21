@@ -10,6 +10,8 @@ import { toast } from "sonner";
 export function UserSearch() {
   const [results, setResults] = useState<any[]>([]);
   const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+
 
   const handleInvite = (userId: string, userName: string) => {
     toast.promise(sendInvite(userId), {
@@ -20,6 +22,7 @@ export function UserSearch() {
   };
 
   const handleSearch = async (query: string) => {
+    
     if (query.length < 3) return setResults([]);
     startTransition(async () => {
       const users = await searchUsers(query);

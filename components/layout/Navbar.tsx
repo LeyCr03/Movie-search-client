@@ -14,11 +14,11 @@ export async function Navbar() {
         </Link>
 
         <div className="flex items-center gap-8 text-sm font-medium">
-          <Link href="/" className="hover:font-bold transition-colors">HOME</Link>
-          <Link href="/watchlist" className="hover:font-bold transition-colors">WATCHLIST</Link>
-          <Link href="/lists" className="hover:font-bold transition-colors">LISTS</Link>
-          <Link href="/watched" className="hover:font-bold transition-colors">WATCHED</Link>
-          <Link href="/social" className="hover:font-bold transition-colors">SOCIAL</Link>
+          <Link href="/" className="hover:text-foreground transition-colors">HOME</Link>
+          <Link href="/watchlist" className="hover:text-foreground transition-colors">WATCHLIST</Link>
+          <Link href="/lists" className="hover:text-foreground transition-colors">LISTS</Link>
+          <Link href="/watched" className="hover:text-foreground transition-colors">WATCHED</Link>
+          <Link href="/social" className="hover:text-foreground transition-colors">SOCIAL</Link>
         </div>
         <div className="flex items-center justify-end gap-3">
           <Link href="/profile" className=" hover:bg-muted-foreground/40 rounded-full p-2 "><UserRound size={18} /></Link>

@@ -12,7 +12,7 @@ export default async function ListsPage() {
   return (
    <main className="container mx-auto px-4 py-20">
       <div className="flex items-center justify-between mb-10">
-        <h1 className="text-4xl font-bold tracking-tighter">Lists Collections</h1>
+        <h1 className="text-4xl font-bold tracking-tighter">Lists Collection</h1>
         <CreateListDialog />
       </div>
       
