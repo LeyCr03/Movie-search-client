@@ -46,7 +46,7 @@ To get started with CINESPHERE, follow these steps:
 
 ``` bash
 # clone
-git clone https://github.com/<user>/<repo>.git
+git clone https://github.com/LeyCr03/Movie-search-client.git
 cd repo
 
 # install
@@ -59,7 +59,6 @@ pnpm run dev    # or make dev, flask run, cargo run, etc.
 - Then: 
 
 ```bash
-# Configure your environment variables in a .env.local file. Refer to .env.example for required variables.
 # .env.example
 PORT=3000
 DATABASE_URL=postgres://user:pass@localhost:5432/dbname
